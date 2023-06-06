@@ -21,23 +21,27 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
     feedsToUse: 'select'
+  displayName: "Restore .Net Application"
     
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: '**/*.csproj'
+  displayName: "Build .Net Application"
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     projects: '**/*[Tt]ests/*.csproj'
     arguments: '--configuration $(BuildConfiguration)'
+  displayName: "Testing .Net Application"
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: true
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+  displayName: "Creating App Artifacts"
     
 - task: PublishBuildArtifacts@1
   inputs:
